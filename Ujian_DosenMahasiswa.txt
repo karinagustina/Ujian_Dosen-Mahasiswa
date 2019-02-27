@@ -1,0 +1,203 @@
+#Ujian_Dosen & Mahasiswa
+#Soal 3.1
+
+> use Kampus
+switched to db Kampus
+
+> db.createUser(
+... {user: 'andi',
+... pwd: 'anditopsecret',
+... roles: ['readWrite', 'dbAdmin']})
+Successfully added user: { "user" : "andi", "roles" : [ "readWrite", "dbAdmin" ] }
+
+> db.createUser(
+... {user: 'budi',
+... pwd: 'buditopsecret',
+... roles: ['readWrite']})
+Successfully added user: { "user" : "budi", "roles" : [ "readWrite" ] }
+
+> db.getUsers()
+[
+        {
+                "_id" : "Kampus.andi",
+                "user" : "andi",
+                "db" : "Kampus",
+                "roles" : [
+                        {
+                                "role" : "readWrite",
+                                "db" : "Kampus"
+                        },
+                        {
+                                "role" : "dbAdmin",
+                                "db" : "Kampus"
+                        }
+                ],
+                "mechanisms" : [
+                        "SCRAM-SHA-1",
+                        "SCRAM-SHA-256"
+                ]
+        },
+        {
+                "_id" : "Kampus.budi",
+                "user" : "budi",
+                "db" : "Kampus",
+                "roles" : [
+                        {
+                                "role" : "readWrite",
+                                "db" : "Kampus"
+                        }
+                ],
+                "mechanisms" : [
+                        "SCRAM-SHA-1",
+                        "SCRAM-SHA-256"
+                ]
+        }
+]
+
+> db.createCollection('Dosen')
+{ "ok" : 1 }
+
+> db.Dosen.insert([
+... {nama:"Caca",
+...         usia:28,
+...         asal:"Jakarta",
+...         bidang:"Fisika Astrologi",
+...         titel:"S2",
+...         status:"Honorer",
+...         nip:123,
+...         matkul:["Metrologi","Kosmologi","Kalkulus"]},
+... {nama:"Dedi",
+...         usia:29,
+...         asal:"Yogyakarta",
+...         bidang:"Fisika Terapan",
+...         titel:"S3",
+...         status:"PNS",
+...         nip:456,
+...         matkul:["Instrumentasi","Elektronika","Fisika Dasar"]}
+... ,{nama:"Euis",
+...         usia:30,
+...         asal:"Bandung",
+...         bidang:"Fisika Teoretik",
+...         titel:"S1",
+...         status:"Honorer",
+...         nip:789,
+...         matkul:["Fisika Dasar","Fisika Modern","Kalkulus"]}])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 3,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+
+> db.createCollection('Mahasiswa')
+{ "ok" : 1 }
+
+> db.Mahasiswa.insert([
+...  {nama:"Faza",
+...         usia:19,
+...         asal:"Aceh",
+...         prodi:"Fisika",
+...         angkatan:2017,
+...         nim:123},
+... {nama:"Gilang",
+...         usia:20,
+...         asal:"Semarang",
+...         prodi:"Fisika",
+...         angkatan:2017,
+...         nim:456},
+... {nama:"Hanafi",
+...         usia:19,
+...         asal:"Makassar",
+...         prodi:"Fisika",
+...         angkatan:2017,
+...         nim:789}])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 3,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+
+> db.Dosen.find().pretty()
+{
+        "_id" : ObjectId("5c74837a833a0f6b1eb55544"),
+        "nama" : "Caca",
+        "usia" : 28,
+        "asal" : "Jakarta",
+        "bidang" : "Fisika Astrologi",
+        "titel" : "S2",
+        "status" : "Honorer",
+        "nip" : 123,
+        "matkul" : [
+                "Metrologi",
+                "Kosmologi",
+                "Kalkulus"
+        ]
+}
+{
+        "_id" : ObjectId("5c74837a833a0f6b1eb55545"),
+        "nama" : "Dedi",
+        "usia" : 29,
+        "asal" : "Yogyakarta",
+        "bidang" : "Fisika Terapan",
+        "titel" : "S3",
+        "status" : "PNS",
+        "nip" : 456,
+        "matkul" : [
+                "Instrumentasi",
+                "Elektronika",
+                "Fisika Dasar"
+        ]
+}
+{
+        "_id" : ObjectId("5c74837a833a0f6b1eb55546"),
+        "nama" : "Euis",
+        "usia" : 30,
+        "asal" : "Bandung",
+        "bidang" : "Fisika Teoretik",
+        "titel" : "S1",
+        "status" : "Honorer",
+        "nip" : 789,
+        "matkul" : [
+                "Fisika Dasar",
+                "Fisika Modern",
+                "Kalkulus"
+        ]
+}
+
+> db.Mahasiswa.find().pretty()
+{
+        "_id" : ObjectId("5c74841e833a0f6b1eb55547"),
+        "nama" : "Faza",
+        "usia" : 19,
+        "asal" : "Aceh",
+        "prodi" : "Fisika",
+        "angkatan" : 2017,
+        "nim" : 123
+}
+{
+        "_id" : ObjectId("5c74841e833a0f6b1eb55548"),
+        "nama" : "Gilang",
+        "usia" : 20,
+        "asal" : "Semarang",
+        "prodi" : "Fisika",
+        "angkatan" : 2017,
+        "nim" : 456
+}
+{
+        "_id" : ObjectId("5c74841e833a0f6b1eb55549"),
+        "nama" : "Hanafi",
+        "usia" : 19,
+        "asal" : "Makassar",
+        "prodi" : "Fisika",
+        "angkatan" : 2017,
+        "nim" : 789
+}
